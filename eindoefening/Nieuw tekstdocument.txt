@@ -1,0 +1,11 @@
+http://www.phpro.org/tutorials/Model-View-Controller-MVC.html
+
+http://www.onlamp.com/pub/a/php/2005/09/15/mvc_intro.html
+
+http://www.htmlgoodies.com/beyond/php/article.php/3912211
+
+http://www.phphulp.nl/php/tutorial/overig/php-6-hoe-en-wat/570/namespaces-vanaf-php-53/1456/
+
+http://daylerees.com/php-namespaces-explained
+
+http://www.sitepoint.com/php-53-namespaces-basics/

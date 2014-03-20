@@ -5,10 +5,10 @@ if (isset($_GET["action"]) && $_GET["action"] == "login") {
 	$toegelaten = UserService::controleerGebruiker($_POST["txtGebruikersnaam"], $_POST["txtWachtwoord"]);
 	if ($toegelaten) {
 		$_SESSION["aangemeld"] = true;
-		header("location: toongeheim.php");
+		header("location: 10.1_toongeheim.php");
 		exit(0);
 	} else {
-		header("location: aanmelden.php");
+		header("location: 10.1_aanmelden.php");
 		exit(0);
 	}
 } else {

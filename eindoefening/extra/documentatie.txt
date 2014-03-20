@@ -1,0 +1,52 @@
+http://www.sitemasters.be/tutorials/1/1/509/PHP/MVC_pattern_uitgelegd
+
+http://www.sitepoint.com/the-mvc-pattern-and-php-1/
+
+http://www.designerstips.com/php/easy-shopping-cart-with-php/
+
+http://www.codeofaninja.com/2013/04/shopping-cart-in-php.html
+
+https://jameshamilton.eu/programming/simple-php-shopping-cart-tutorial
+
+
+
+
+.textstroke {
+     text-shadow:
+          /* Top Middle */
+          0 -.0125em .015em white,
+ 
+          /* Top Right */
+          .0125em -.0125em .015em white,
+ 
+          /* Top Left */
+          -.0125em -.0125em .015em white,
+ 
+          /* Left Middle */
+          -.0125em 0 .015em black,
+ 
+          /* Left Top */
+          -.0125em -.0125em .015em black,
+ 
+          /* Left Bottom */
+          -.0125em .0125em .015em black,
+ 
+          /* Right Middle */
+          .0125em 0 .015em black,
+ 
+          /* Right Top */
+          .0125em -.0125em .015em black,
+ 
+          /* Right Bottom */
+          .0125em .0125em .015em black,
+ 
+          /* Bottom Middle */
+          0 .0125em .015em white,
+ 
+          /* Bottom Left */
+          -.0125em .0125em .015em white,
+ 
+          /* Bottom Right */
+          .0125em .0125em .015em white
+     ;
+}

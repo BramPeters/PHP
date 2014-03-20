@@ -7,7 +7,7 @@
     <body>
         <h1>Nieuw boek toevoegen</h1>
         <?php
-        if($error == "titleexists"){
+        if(isset($error) && $error == "titleexists"){
             ?>
                 <p style ="color:red">Titel bestaat al</p>
                 <?php
