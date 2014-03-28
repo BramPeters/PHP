@@ -2,17 +2,22 @@
 require_once("business/productservice.class.php");
 //$pizzaLijst=\PizzaShop\Service\ProductService::toonAllePizzas();
 $extraLijst=ProductService::toonAlleExtras();
-$winkelLijst=ProductService::toonInhoudMandje();
+//$mandjeLijst = ProductService::toonMandje();
+
+if(!isset($_SESSION["winkelmandje"])){
+    $_SESSION["winkelmandje"]="";
+    $mandjeLijst = ProductService::toonMandje();
+}else{
+    $mandjeLijst = ProductService::toonMandje();
+}
 include("presentation/extralijst.php");
-
-
-
 
 //winkelmandje invullen
 if(isset($_GET["action"]) && $_GET["action"]== "process") {
-    echo 'alert("Dit bestand heeft niet de juiste extensie!");';
+    //echo 'alert("Dit bestand heeft niet de juiste extensie!");';
     try{
-    ProductService::voegNieuwProductWinkelmandje ($_POST["ProductNaam"], $_POST["selGenre"]);
+    //ProductService::voegExtrasToe();    
+    //ProductService::voegNieuwProductWinkelmandje ($_POST["ProductNaam"], $_POST["selGenre"]);
     //header("location: 10.0_toonalleboeken.php");
     //include("presentation/nieuwboekform.php");
     //exit(0);

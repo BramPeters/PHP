@@ -5,15 +5,17 @@ require_once("business/productservice.class.php");
 //$pizzaLijst=\PizzaShop\Service\ProductService::toonAllePizzas();
 $productLijst = ProductService::toonAllePizzas();
 //$winkelLijst = ProductService::toonInhoudMandje();
-$mandjeLijst = ProductService::toonMandje();
+//$mandjeLijst = ProductService::toonMandje();
 
-include("presentation/productenlijst.php");
 if(!isset($_SESSION["winkelmandje"])){
     $_SESSION["winkelmandje"]="";
     $mandjeLijst = ProductService::toonMandje();
 }else{
     $mandjeLijst = ProductService::toonMandje();
 }
+
+include("presentation/productenlijst.php");
+
 
 
 

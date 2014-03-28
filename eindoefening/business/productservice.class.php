@@ -19,12 +19,20 @@ class ProductService{
 //    }
     
     public static function toonMandje(){
-        $lijst = ProductDAO::getMandje();
+        if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
+          $winkelmandje =  $_SESSION["winkelmandje"];
+        $lijst = ProductDAO::getMandje($winkelmandje);
+        print("er is een mandje");
         return $lijst;
+        }else{
+            print("er is geen mandje");
+        return false;
+        }
+        
     }
     
     public static function voegNieuwProductWinkelmandje($productId){
-        ProductDAO::getProductById($productId);
+        //ProductDAO::getProductById($productId);
         
         if(isset($_SESSION["winkelmandje"]["$productId"])){
            $_SESSION["winkelmandje"]["$productId"]++;
@@ -58,7 +66,9 @@ class ProductService{
     }
        
     public static function winkelmandjeUploaden($gebruikerInfo, $mandjeLijst){
+        if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
         ProductDAO::uploadenWinkelmandje($gebruikerInfo, $mandjeLijst);
+        }
         return true;
     }
     

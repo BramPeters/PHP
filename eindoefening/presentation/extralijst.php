@@ -7,9 +7,10 @@
     <body style=' margin: 5%;'>
         <div style='float:left;'>
         <table >
-            <h1>Kies uw extra ingredi&#235;nten voor de pizza: </h1>
+            <h1>Personaliseer uw pizza: </h1>
+            <?php print("--winkelmandje".$mandjeLijst."--")?>
             <tr>
-                <td style='font-size: 2em; font-weight: bold;'></td>
+                <td style='font-size: 2em; font-weight: bold;'><?php print($_GET["name"]) ?></td>
             </tr>
             <td style="background-color:#ddd">Extra ingredi&#235;nten</td><td style="background-color:#ddd">Prijs</td><td style="background-color:#ddd"></td>
             <?php
@@ -25,77 +26,120 @@
                         <td style="background-color:#FFF">
                             <?php
                             $ingrId = $extra->getIngredientId();
-                            echo"<a href=pizzaextras.php?action=process?product=$ingrId style='text-decoration:none; font-weight: bold'>Voeg toe aan uw pizza </a>"
+                           // echo"<a href=pizzaextras.php?action=process?product=$ingrId style='text-decoration:none; font-weight: bold'>Voeg toe aan uw pizza </a>"
+                            print("<input type='checkbox' id='$ingrId' name='$ingrId' value='No' unchecked><label for='$ingrId'>Voeg toe aan de pizza.</label>");
+                            
                             ?>
                         </td>
                     </tr>
                     <?php
                 }
             
-            ?>
+            ?>                                   
         </table>
+            <?php print("<form action='toonallepizzas.php?action=change'  method='POST'>"); ?>
+               <?php print ("<input type='text' name='txtAantal' placeholder='Aantal' maxlength='2' style='width: 80px;' required>"); ?>                                
+               <?php print("<br><br>"."<input type='submit' value='Personaliseer!'>") ?>
     </div>
-        <!--Einde van de pizza db lijst weergave-->
-        <div style='float:right;margin-right: 7em; margin-top: 8em;background-color: lightsteelblue; padding:0.7em;'>
-        <br>
-        <h1>Winkelmandje: </h1>
-        <table style='border:solid grey 1px'>
+        <!--Einde van de pizza db lijst weergave--> 
+        
+        <!--versie 2-->
+        <div style='float:right;' class="winkelmandje">
             
-<?php
-if (isset($winkelLijst) && $winkelLijst != null) { $prijs=0;?>
-    <td style="background-color:#ddd">Aantal</td><td style="background-color:#ddd">Item</td><td style="background-color:#ddd"></td><td style="background-color:#ddd; width:3.2em;">Prijs</td><?php
-    foreach ($winkelLijst as $product) {
-        ?>
-                    <tr>
-                        <td>
-        <?php print($product->getProductAantal()); ?>
-                        </td>
-                        <td>
-        <?php print($product->getProductSoort()); ?>
-                        </td>
-                        <td>
-        <?php print($product->getProductNaam()); ?>
-                        </td>
-                        <td style='text-align: right;'>
-        <?php print($product->getProductAantal() * $product->getProductPrijs() . " &euro;"); ?>
-                        </td>
-                    </tr>
-                            <?php $prijs = $prijs+($product->getProductAantal() * $product->getProductPrijs());}
+            <br>
+            <h1>Winkelmandje: </h1>
+            <table>
+                <?php if (isset($mandjeLijst) && $mandjeLijst != null) {
+                    $totaalPrijs = 0; ?>
+                    <td style="background-color:#ddd; width:0.1em;">Aantal</td><td style="background-color:#ddd">Item</td><td style="background-color:#ddd"></td><td style="background-color:#ddd; width:3.2em;text-align: center;">Prijs</td><td style="background-color:#ddd; width:3.2em;"></td><?php
+                    
+                    foreach($mandjeLijst as $item){
+                        $productId = $item->getProductId();
+                        
+                        //print("product: ".$item." - ".$aantal."<brb>");
                         ?>
+                   
+                       <tr>
+                            <td style="width:0.1em; text-align: center;">
+                               
+                                <?php print("<form action='toonallepizzas.php?action=change&id=$productId'  method='POST'>"); ?>
+                                <?php print ("<input type='text' name='txtAantal' value='".$item->getProductAantal()."' maxlength='2' style='width: 20px;' required>"); ?>                                
+                                <?php print("<input type='submit' value='+ -'>") ?>
+                                </form>
+                            </td>
+                            <td style="width:0.1em;">
+                                <?php print($item->getProductSoort()); ?>
+                            </td>
+                            <td style="width:0.1em;">
+                                <?php print($item->getProductNaam()); ?>
+                            </td>
+                            <td style='text-align: center;'>
+                                <?php print($item->getProductAantal() * $item->getProductPrijs() . " &euro;"); ?>
+                            </td>
+                            <td style='text-align:center;'>
+                                <?php
+                                
+                                //print $productId;
+                                print("<a href=toonallepizzas.php?action=delete&id=".$productId." style='text-decoration:none; font-weight: bold'>Verwijder uit mandje </a>");
+                                ?>
+                               
+                            </td>
+                        </tr>
+                         
+                    <?php
+                    $totaalPrijs = $totaalPrijs + ($item->getProductAantal() * $item->getProductPrijs());
+                        }
+                        
+                    
+                    ?>
                     <tr style='background-color:darkslateblue; color:white;'>
                         <td>Totaal: </td>
                         <td></td>
                         <td></td>
-                        <td style='text-align: right;'><?php print($prijs). " &euro;" ?></td>
+                        <td style='text-align: center;'><?php print($totaalPrijs) . " &euro;" ?></td>
+                        <td></td>
                     </tr>
-            </table>
-            <br>
-    <?php
-} else {
-    print("Uw winkelmandje is leeg.");
-}
-?>
+                </table>
+                <br>
 
-</div>
+                <a href="toonallepizzas.php" style="
+                   border-top: 1px solid #96d1f8;
+                   background: #204080;
+                   padding: 5px 10px;
+                   margin-left: 11em;
 
-                    <a href="toonallepizzas.php" style="
-               border-top: 1px solid #96d1f8;
-               background: #204080;
-               padding: 5px 10px;
-               margin-left: 12em;
-               clear:both;
-               float:left;
-               margin-top:2em;
+                   -webkit-border-radius: 8px;
+                   -moz-border-radius: 8px;
+                   border-radius: 8px;
 
-               -webkit-border-radius: 8px;
-               -moz-border-radius: 8px;
-               border-radius: 8px;
+                   color: white;
+                   font-size: 18px;
+                   text-decoration: none; 
+                   vertical-align: middle;
+                   ">Afrekenen </a>
+                   <?php
+               } else {
+                   print("Uw winkelmandje is leeg.");
+               }
+               ?>
 
-               color: white;
-               font-size: 18px;
-               text-decoration: none; 
-               vertical-align: middle;
-               ">Klaar met toevoegen </a>
+        </div>
+        <!-- versie 2 end -->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+ <?php 
+ //Print_r ($_SESSION); 
+ //var_dump($_SESSION);
+ ?>
 
 
 
