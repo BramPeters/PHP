@@ -47,6 +47,8 @@ class UserService {
     }
     public static function nieuweGebruiker($post){
         UserDAO::setUserNew($post);
+        $_SESSION["aangemeld"] = true;
+        $_SESSION["gebruiker"] = $post["txtGebruikersnaam"];
     }
     
     

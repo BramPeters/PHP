@@ -4,7 +4,7 @@ session_start();
 require_once("business/productservice.class.php");
 //$pizzaLijst=\PizzaShop\Service\ProductService::toonAllePizzas();
 $productLijst = ProductService::toonAllePizzas();
-$winkelLijst = ProductService::toonInhoudMandje();
+//$winkelLijst = ProductService::toonInhoudMandje();
 $mandjeLijst = ProductService::toonMandje();
 
 include("presentation/productenlijst.php");
@@ -35,5 +35,13 @@ if (isset($_GET["action"]) && $_GET["action"] == "process") {
         ProductService::verwijderProductWinkelmandje($_GET["id"]);
         header("location: toonallepizzas.php");
         exit(0);
+    } else {
+        if(isset($_GET["action"]) && $_GET["action"] == "change"){
+            print ($_GET["id"]." - ". $_GET["txtAantal"]);
+//ProductService::updateProductWinkelmandje($_GET["id"], $_POST["aantal"]);
+         
+        //header("location: toonallepizzas.php");
+        exit(0);   
+        }
     }
 }

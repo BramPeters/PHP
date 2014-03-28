@@ -2,11 +2,7 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head><title>test: pizza</title>
-        <style>
-            table{border-collapse:collapse;}
-            td, th{padding:0.5em;}
-            th{background-color:#ddd}
-        </style>
+    <link rel="stylesheet" href="presentation/design.css" />
     </head>
     <body>
 
@@ -22,13 +18,13 @@
                     </tr>
                     <tr>
                         <td>Telefoonnummer:</td>
-                        <td><input type="text" name="txtTelefoonnummer" value="<?php print($gebruikerInfo->getTelefoonnummer()); ?>" required></td>
+                        <td><input type="text" name="txtTelefoonnummer" value="<?php print($gebruikerInfo->getTelefoonnummer()); ?>" required maxlength="9" pattern="[0-9]{9}"></td>
                         <td>Adres:</td>
                         <td><input type="text" name="txtAdres" value="<?php print($gebruikerInfo->getKlantAdres()); ?>" required></td>
                     </tr>
                     <tr>
                         <td>Postcode:</td>
-                        <td><input type="text" name="txtPostcode" value="<?php print($gebruikerInfo->getKlantPostcode()); ?>" required maxlength="4"></td>
+                        <td><input type="text" name="txtPostcode" value="<?php print($gebruikerInfo->getKlantPostcode()); ?>" required maxlength="4" pattern="[0-9]{4}"></td>
                     </tr>
                     <tr>
                         <td></td>

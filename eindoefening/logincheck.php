@@ -1,8 +1,6 @@
 <?php
 
-if(isset($ingelogd)&&$ingelogd==true){
-    header("location: afrekenen.php");
-}else{
+
 session_start();
 require_once("business/userservices.class.php");
     if(isset($_SESSION["aangemeld"]) && $_SESSION["aangemeld"] == true){
@@ -24,4 +22,4 @@ if (isset($_GET["action"]) && $_GET["action"] == "login") {
 } else {
 	include("presentation/loginform.php");
 }
-}
+

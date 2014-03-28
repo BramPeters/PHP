@@ -2,11 +2,7 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head><title>test: pizza</title>
-        <style>
-            table{border-collapse:collapse;}
-            td, th{padding:0.5em;}
-            th{background-color:#ddd}
-        </style>
+        <link rel="stylesheet" href="presentation/design.css" />
     </head>
     <body>
 
@@ -22,13 +18,13 @@
                     </tr>
                     <tr>
                         <td>Telefoonnummer:</td>
-                        <td><input type="text" name="txtTelefoonnummer" placeholder="Bvb. 050224488" required></td>
+                        <td><input type="text" name="txtTelefoonnummer" placeholder="Bvb. 050224488" required maxlength="9" pattern="[0-9]{9}"></td>
                         <td>Adres:</td>
                         <td><input type="text" name="txtAdres" placeholder="Bvb. Straatlaan 86" required></td>
                     </tr>
                     <tr>
                         <td>Postcode:</td>
-                        <td><input type="text" name="txtPostcode" placeholder="Bvb. 8000" required maxlength="4"></td>
+                        <td><input type="text" name="txtPostcode" placeholder="Bvb. 8000" required maxlength="4" pattern="[0-9]{4}"></td>
                        
                     </tr>
                     <tr>
@@ -39,15 +35,9 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td><a href="logincheck.php"><input type="button" value="Annuleren"></a></td>
                         <td><input type="submit" value="Aanmaken"></td>
-                        <td></td>
                         <td><?php if (isset($_GET["bestaandegebruiker"])) {print("<p style='color:red;'>Er bestaat al een gebruiker met het opgegeven emailadres.</p>");}?></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><a href="logincheck.php">Terugkeren naar de login.</a></td>
                     </tr>
                 </tbody>
             </table>

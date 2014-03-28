@@ -7,7 +7,7 @@ $gebruikersnaam = $_SESSION["gebruiker"];
 }
 require_once("business/userservices.class.php");
 require_once("business/productservice.class.php");
-$winkelLijst=ProductService::toonInhoudMandje();
+//$winkelLijst=ProductService::toonInhoudMandje();
 $mandjeLijst = ProductService::toonMandje();
 $gebruikerInfo=UserService::toonGebruikersInfo($gebruikersnaam);
 $postcodes=UserService::checkPostcodes();

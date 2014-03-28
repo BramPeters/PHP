@@ -2,14 +2,10 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head><title>test: pizza</title>
-        <style>
-            table{border-collapse:collapse;}
-            td, th{padding:0.5em;}
-            th{background-color:#ddd}
-        </style>
+        <link rel="stylesheet" href="presentation/design.css" />
     </head>
     <body>
-        <div style="margin-top: 5%;text-align: center;">
+        <div class="afwerking">
             <h2><?php print($gebruikerInfo->getKlantVoornaam()." ".$gebruikerInfo->getKlantFamilienaam().", "); ?></h2>
             <br><br>
             <p><?php print("Uw bestelling wordt binnen het uur geleverd aan het adres: ".$gebruikerInfo->getKlantAdres()."."); ?></p>

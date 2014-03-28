@@ -2,11 +2,7 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head><title>test: pizza</title>
-        <style>
-            table{border-collapse:collapse;}
-            td, th{padding:0.5em;}
-            th{background-color:#ddd}
-        </style>
+        <link rel="stylesheet" href="presentation/design.css" />
     </head>
     <body style=' margin: 5%;'>
         <div style='float:left;'>

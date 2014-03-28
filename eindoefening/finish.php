@@ -1,6 +1,11 @@
 <?php
 
 session_start();
+if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
+    
+}else{
+    header("location: toonallepizzas.php");
+}
 if (isset($_SESSION["gebruiker"])) {
     $gebruikersnaam = $_SESSION["gebruiker"];
     //print('eerste if <br>');

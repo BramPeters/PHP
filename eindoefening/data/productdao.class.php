@@ -48,19 +48,15 @@ class ProductDAO{
     public static function getMandje(){
         
         $lijst = array();
-        if(isset($_SESSION["winkelmandje"])){
-         try{   
+        if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
         foreach($_SESSION["winkelmandje"] as $item=>$aantal){
-        $sql = "select ProductNaam, ProductType, ProductPrijs, producttype.ProductTypeId, producttype.ProductSoort, ProductId from producten,producttype where ProductNaam = '".$item."' and producten.ProductType=producttype.ProductTypeId";
+        $sql = "select ProductNaam, ProductType, ProductPrijs, producttype.ProductTypeId, producttype.ProductSoort, ProductId from producten,producttype where ProductId = '".$item."' and producten.ProductType=producttype.ProductTypeId";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $resultSet = $dbh->query($sql);
         $rij = $resultSet->fetch(PDO::FETCH_ASSOC);
             $pizza = new ProductInMandje($rij["ProductNaam"],$rij["ProductType"], $rij["ProductPrijs"],$rij["ProductSoort"], $item, $aantal, $rij["ProductId"]);
             array_push($lijst, $pizza);          
         $dbh = null;
-        }
-         }catch(Exception $e){
-           echo 'Message: mandje is leeg'; 
         }
         return $lijst;
         }         
@@ -83,12 +79,16 @@ class ProductDAO{
          //print($max."  -  ".$klantId."<br>".$sql);
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $dbh->exec($sql);
-
+        
+        $teller = 1;
+        if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
         foreach($mandjeLijst as $item){
-        $sql = "insert into `bestelregel`(`BestellingsNr`, `ProductId`, `ProductAantal`) VALUES (".$max." ,".$item->getProductId().", ".$item->getProductAantal().")";
+        $sql = "insert into `bestelregel`(`BestellingsNr`,`BestelRegel`, `ProductId`, `ProductAantal`) VALUES (".$max." ,".$teller." ,".$item->getProductId().", ".$item->getProductAantal().")";
         //print("<br>".$sql."<br>");
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $dbh->exec($sql);
+        $teller++;
+        }
         }
         $dbh = null;
         return true;
@@ -97,38 +97,24 @@ class ProductDAO{
     }
     
     
-    public static function create($productId){
-        $sql = "select ProductNaam from producten where ProductId = ".$productId;
+    public static function getProductById($productId){
+        $sql = "select ProductId from producten where ProductId = ".$productId;
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $resultSet = $dbh->query($sql);
         foreach ($resultSet as $rij) {
-            $product = $rij["ProductNaam"];
+            $product = $rij["ProductId"];
         }
         $dbh = null;
         
-        if(isset($_SESSION["winkelmandje"]["$product"])){
-           $_SESSION["winkelmandje"]["$product"]++;
-           //print("extra hoeveelheid voor het mandje");
-        }else{
-            $_SESSION["winkelmandje"]["$product"] = 1;
-            //print("Nieuw product voor het mandje");
-           }             
+//        if(isset($_SESSION["winkelmandje"]["$product"])){
+//           $_SESSION["winkelmandje"]["$product"]++;
+//           //print("extra hoeveelheid voor het mandje");
+//        }else{
+//            $_SESSION["winkelmandje"]["$product"] = 1;
+//            //print("Nieuw product voor het mandje");
+//           }             
     }
     
-    
-    public static function verwijderProduct($id){
-        //print_r($_SESSION["winkelmandje"]);
-        echo'<br><br>';
-        //print_r($_SESSION["winkelmandje"]["$id"]);
-        if ($_SESSION["winkelmandje"][$id]) {
-            $_SESSION["winkelmandje"]["$id"]--;
-            if($_SESSION["winkelmandje"][$id]==0){
-                unset($_SESSION["winkelmandje"][$id]);
-            }
-        }
-        else{
-            echo "error";
-        }
-    }
+
     
 }
