@@ -144,7 +144,7 @@
                        <tr>
                             <td style="width:0.1em; text-align: center;">
                                
-                                <form action='toonallepizzas.php?action=change' method='GET'>
+                                <?php print("<form action='toonallepizzas.php?action=change&id=$productId'  method='POST'>"); ?>
                                 <?php print ("<input type='text' name='txtAantal' value='".$item->getProductAantal()."' maxlength='2' style='width: 20px;' required>"); ?>                                
                                 <?php print("<input type='submit' value='+ -'>") ?>
                                 </form>

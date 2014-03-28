@@ -36,12 +36,27 @@ if (isset($_GET["action"]) && $_GET["action"] == "process") {
         header("location: toonallepizzas.php");
         exit(0);
     } else {
-        if(isset($_GET["action"]) && $_GET["action"] == "change"){
-            print ($_GET["id"]." - ". $_GET["txtAantal"]);
-//ProductService::updateProductWinkelmandje($_GET["id"], $_POST["aantal"]);
-         
+        if (isset($_GET["action"]) && $_GET["action"] == "change") {
+            try {
+                print_r($_POST);
+                print("<br> get: ");
+                print_r($_GET);
+                $aantal = $_POST["txtAantal"];
+                $prodId = $_GET["id"];
+                ProductService::updateProductWinkelmandje($prodId, $aantal);
+                header("location: toonallepizzas.php");
+                exit(0);
+        //ProductService::voegNieuwProductWinkelmandje($_GET["product"]);
         //header("location: toonallepizzas.php");
-        exit(0);   
-        }
+        //exit(0);
+        
+    } catch (TitelBestaatException $tbe) {
+        // header("location: 10.0_voegboektoe.php?error=titleexists");
+        exit(0);
+    
+    }
+    
+    }
+    
     }
 }
