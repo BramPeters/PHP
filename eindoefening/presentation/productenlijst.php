@@ -20,7 +20,7 @@
             </tr>
             <td style="background-color:#ddd">Naam & Omschrijving</td><td style="background-color:#ddd">Prijs</td><td style="background-color:#ddd"></td>
             <?php
-            //print_r($_SESSION);
+            print_r($_SESSION);
             //print_r($mandjeLijst);
             foreach ($productLijst as $product) {
                 if ($product->getProductType() == "Pizza") {
@@ -41,7 +41,7 @@
                         <td style="background-color:#FFF">
                             <?php
                             $productId = $product->getProductId();
-                            echo"<a href=pizzaextras.php?action=process&product=$productId&name=$productNaam style='text-decoration:none; font-weight: bold'>Voeg toe aan mandje </a>"
+                            echo"<a href=pizzaextras.php?action=process&product=$productId style='text-decoration:none; font-weight: bold'>Voeg toe aan mandje </a>"
                             ?>
                         </td>
 

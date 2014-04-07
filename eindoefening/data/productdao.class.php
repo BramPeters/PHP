@@ -61,6 +61,28 @@ class ProductDAO{
         return $lijst;
        // }         
     }
+    public static function getMandje2($winkelmandje){
+        
+        $lijst = array();
+       // if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
+
+
+        
+        foreach($winkelmandje as $item=>$extras){
+            foreach($extras as $blob =>$aantal){
+
+        $sql = "select ProductNaam, ProductType, ProductPrijs, producttype.ProductTypeId, producttype.ProductSoort, ProductId from producten,producttype where ProductId = '".$item."' and producten.ProductType=producttype.ProductTypeId";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->query($sql);
+        $rij = $resultSet->fetch(PDO::FETCH_ASSOC);
+            $pizza = new ProductInMandje($rij["ProductNaam"],$rij["ProductType"], $rij["ProductPrijs"],$rij["ProductSoort"], $item, $aantal, $rij["ProductId"]);
+            array_push($lijst, $pizza);          
+        $dbh = null;
+        }
+        }
+        return $lijst;
+       // }         
+    }
     
     
     public static function uploadenWinkelmandje($gebruikerInfo, $mandjeLijst){

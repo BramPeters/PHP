@@ -41,23 +41,48 @@ if (isset($_GET["action"]) && $_GET["action"] == "process") {
         if (isset($_GET["action"]) && $_GET["action"] == "change") {
             try {
                 print_r($_POST);
-                print("<br> get: ");
+                //print("<br> get: ");
                 print_r($_GET);
                 $aantal = $_POST["txtAantal"];
                 $prodId = $_GET["id"];
                 ProductService::updateProductWinkelmandje($prodId, $aantal);
                 header("location: toonallepizzas.php");
                 exit(0);
-        //ProductService::voegNieuwProductWinkelmandje($_GET["product"]);
-        //header("location: toonallepizzas.php");
-        //exit(0);
         
     } catch (TitelBestaatException $tbe) {
         // header("location: 10.0_voegboektoe.php?error=titleexists");
-        exit(0);
-    
+        exit(0);    
     }
     
+    }else{
+        if(isset($_GET["action"]) && $_GET["action"] == "extras"){
+            //print("hey");
+            try {
+                $aantal = $_POST["txtAantal"];
+                $prodId = $_GET["id"];
+                //$prodId = $_POST["id"];
+                //print_r($_SESSION);
+                print $prodId."**".$aantal;
+                $extras = $_POST['extra'];
+                    // print_r($extras);
+                    // for($i=0; $i < count($extras); $i++){
+                    //echo "Selected " . $extras[$i] . "<br/>";
+                    //}
+                ProductService::voegProductMetExtras($prodId, $aantal, $extras);
+                //ProductService::updateProductWinkelmandje($prodId, $aantal);
+                header("location: toonallepizzas.php");
+                exit(0);
+                
+                //ProductService::updateProductWinkelmandje($prodId, $aantal);
+                //header("location: toonallepizzas.php");
+                //exit(0);
+        
+    } catch (TitelBestaatException $tbe) {
+        // header("location: 10.0_voegboektoe.php?error=titleexists");
+        exit(0);    
+    }
+            
+        }
     }
     
     }

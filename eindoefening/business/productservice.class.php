@@ -21,11 +21,12 @@ class ProductService{
     public static function toonMandje(){
         if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
           $winkelmandje =  $_SESSION["winkelmandje"];
-        $lijst = ProductDAO::getMandje($winkelmandje);
-        print("er is een mandje");
+        //$lijst = ProductDAO::getMandje($winkelmandje);
+        $lijst = ProductDAO::getMandje2($winkelmandje);
+        //print("er is een mandje");
         return $lijst;
         }else{
-            print("er is geen mandje");
+            //print("er is geen mandje");
         return false;
         }
         
@@ -43,15 +44,34 @@ class ProductService{
            } 
         
     }
+    
+    public static function voegProductMetExtras($prodId, $aantal, $extras){
+        foreach ($extras as $extra){
+            $lijst = $lijst.$extra;
+        }
+        $_SESSION["winkelmandje"]["$prodId"]["$lijst"] = $aantal;
+
+       // for($i=0; $i < count($extras); $i++){
+       //             echo "Selected " . $extras[$i] . "<br/>";
+       // }
+        
+    }
+    
+    
+    
     public static function updateProductWinkelmandje($productId, $productAantal){
         
         if(isset($_SESSION["winkelmandje"]["$productId"])){
-           $_SESSION["winkelmandje"]["$productId"]= $productAantal;
+           if($productAantal == 0){
+               unset($_SESSION["winkelmandje"][$productId]); 
+           }else{
+            $_SESSION["winkelmandje"]["$productId"]= $productAantal;
+           }
            echo $productAantal;
            
            //print("extra hoeveelheid voor het mandje");
         }else{
-            echo "error";
+            $_SESSION["winkelmandje"]["$productId"]= $productAantal;
            } 
         
     }

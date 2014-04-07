@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("business/productservice.class.php");
 //$pizzaLijst=\PizzaShop\Service\ProductService::toonAllePizzas();
 $extraLijst=ProductService::toonAlleExtras();

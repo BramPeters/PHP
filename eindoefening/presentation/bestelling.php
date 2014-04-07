@@ -16,8 +16,8 @@
         <h1>Klant info: </h1>
         <table style='background-color: lightsteelblue;'>
             <?php
- //Print_r ($postcodes);
-            print_r($_SESSION);
+            //Print_r ($postcodes);
+            //print_r($_SESSION);
             if (!empty($gebruikerInfo)) {
         ?>  
                     <tr>
@@ -125,7 +125,7 @@
          }else{
              //style="float:right;text-decoration:none; font-weight: bold; font-size: 2.5em;margin-right: 20%;margin-top:-10.5em;color:lightgrey; background-color: lightseagreen;border:10px ridge green; padding:5px;"
           ?>  
-                <a href="finish.php" ><input type="button" value="Klik hier om de bestelling door te sturen"></a>
+                <a href="finish.php" style="float:right; margin-right: 10em; margin-top:-20em; "><input type="button" value="Klik hier om de bestelling door te sturen"></a>
          <?php
           } 
          ?>
