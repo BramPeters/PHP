@@ -7,7 +7,9 @@ require_once("business/userservices.class.php");
         header("location: afrekenen.php");
     }
 if (isset($_GET["action"]) && $_GET["action"] == "login") {
-	$toegelaten = UserService::controleerGebruiker($_POST["txtGebruikersnaam"], $_POST["txtWachtwoord"]);
+    $user = $_POST["txtGebruikersnaam"];
+    $password = md5($_POST["txtWachtwoord"]);
+	$toegelaten = UserService::controleerGebruiker($user, $password);
 	if ($toegelaten) {
 		$_SESSION["aangemeld"] = true;
                 $_SESSION["gebruiker"] = $_POST["txtGebruikersnaam"];
