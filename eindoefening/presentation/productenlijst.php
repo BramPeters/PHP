@@ -20,7 +20,10 @@
             </tr>
             <td style="background-color:#ddd">Naam & Omschrijving</td><td style="background-color:#ddd">Prijs</td><td style="background-color:#ddd"></td>
             <?php
-            print_r($_SESSION);
+            echo '<pre>';
+        print_r ($_SESSION);
+        echo  '</pre>';
+           // print_r($_SESSION);
             //print_r($mandjeLijst);
             foreach ($productLijst as $product) {
                 if ($product->getProductType() == "Pizza") {
@@ -135,9 +138,12 @@
                 <?php if (isset($mandjeLijst) && $mandjeLijst != null) {
                     $totaalPrijs = 0; ?>
                     <td style="background-color:#ddd; width:0.1em;">Aantal</td><td style="background-color:#ddd">Item</td><td style="background-color:#ddd"></td><td style="background-color:#ddd; width:3.2em;text-align: center;">Prijs</td><td style="background-color:#ddd; width:3.2em;"></td><?php
-                    
+                   // $regel=0;
                     foreach($mandjeLijst as $item){
+                        
                         $productId = $item->getProductId();
+                        $extras = $item->getProductExtra();
+                        //$productRegel = $item->getProductRegel();
                         
                         //print("product: ".$item." - ".$aantal."<brb>");
                         ?>
@@ -148,7 +154,7 @@
                                 <?php print("<form action='toonallepizzas.php?action=change&id=$productId'  method='POST'>"); ?>
                                 <?php print ("<input type='text' name='txtAantal' value='".$item->getProductAantal()."' maxlength='2' style='width: 20px;' required>"); ?>                                
                                 <?php print("<input type='submit' value='+ -'>") ?>
-                                </form>
+                                <?php print ("</form>"); ?>
                             </td>
                             <td style="width:0.1em;">
                                 <?php print($item->getProductSoort()); ?>
@@ -163,14 +169,36 @@
                                 <?php
                                 
                                 //print $productId;
-                                print("<a href=toonallepizzas.php?action=delete&id=".$productId." style='text-decoration:none; font-weight: bold'>Verwijder uit mandje </a>");
+                                print("<a href=toonallepizzas.php?action=delete&regel=".$productId."&extras=".$extras." style='text-decoration:none; font-weight: bold'>Verwijder uit mandje </a>");
                                 ?>
                                
                             </td>
                         </tr>
+                        <?php //for($i= count($extras);$i >0; $i--){
+                        if($extras !== 0){
+                            $arrExtras = str_split($extras);
+                            foreach($arrExtras as $extraNr){
+                                $extrasInfo=productDAO::getExtrasInfo($extraNr);
+                                 //$extras(1) ProductService::getExtra;
+                             ?>
+                            <tr style="height:0.6em;padding:0;margin-top:-5px;">
+                                <td></td>
+                                <td style='text-align: center;font-size:small;padding:0.1em;'>Extra</td>
+                                <td style='text-align: center;font-size:small;padding:0.1em;'><?php print($extrasInfo->IngredientNaam); ?></td>
+                                 <td style='text-align: center; font-size:small; padding:0.1em;'><?php print($extrasInfo->IngredientPrijs. " &euro;"); ?></td>
+                                <td></td>
+                            </tr>
+                            
+                        <?php }} ?>   
+                            
+                            
+                                    
+                        
+                        
                          
                     <?php
                     $totaalPrijs = $totaalPrijs + ($item->getProductAantal() * $item->getProductPrijs());
+                    //$regel++;
                         }
                         
                     

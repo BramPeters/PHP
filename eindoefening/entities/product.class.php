@@ -66,15 +66,21 @@ class MandProduct {
 }
 //$sql = "select ProductNaam, ProductType, ProductPrijs, producttype.ProductTypeId, producttype.ProductSoort from producten,producttype where ProductId = ".$productId ." and producten.ProductType=producttype.ProductTypeId";
 class ProductInMandje {
-    public function __construct($ProductNaam, $ProductType, $ProductPrijs, $ProductSoort, $item, $aantal, $ProductId) {
+    public function __construct(/*$regel,*/ $ProductNaam, $ProductType, $ProductPrijs, $ProductSoort, $item, $aantal, $ProductId, $extra) {
+        //$this->ProductRegel = $regel;
         $this->ProductNaam = $ProductNaam;
         $this->ProductType = $ProductType;
         $this->ProductPrijs = $ProductPrijs;
         $this->ProductSoort = $ProductSoort;
         $this->ProductAantal = $aantal;
         $this->ProductId = $ProductId;
+        $this->ProductExtra = $extra;
         
     }
+//    public function getProductRegel() {
+//        return $this->ProductRegel;
+//    }
+    
     public function getProductNaam() {
         return $this->ProductNaam;
     }
@@ -92,6 +98,9 @@ class ProductInMandje {
     }
     public function getProductId() {
         return $this->ProductId;
+    }
+    public function getProductExtra() {
+        return $this->ProductExtra;
     }
 
 

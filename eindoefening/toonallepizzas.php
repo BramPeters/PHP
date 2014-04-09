@@ -6,7 +6,7 @@ require_once("business/productservice.class.php");
 $productLijst = ProductService::toonAllePizzas();
 //$winkelLijst = ProductService::toonInhoudMandje();
 //$mandjeLijst = ProductService::toonMandje();
-
+//if(!isset($_SESSION["itemteller"])){$_SESSION["itemteller"] = 0;}
 if(!isset($_SESSION["winkelmandje"])){
     $_SESSION["winkelmandje"]="";
     $mandjeLijst = ProductService::toonMandje();
@@ -15,6 +15,11 @@ if(!isset($_SESSION["winkelmandje"])){
 }
 
 include("presentation/productenlijst.php");
+
+        echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>';  echo '<br>';     echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>';echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>';echo '<br>';  echo '<br>';echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>'; echo '<br>';
+        echo '<pre>';
+        print_r ($mandjeLijst);
+        echo  '</pre>';
 
 
 
@@ -33,8 +38,8 @@ if (isset($_GET["action"]) && $_GET["action"] == "process") {
         exit(0);
     }
 } else {
-    if (isset($_GET["action"]) && $_GET["action"] == "delete") {
-        ProductService::verwijderProductWinkelmandje($_GET["id"]);
+    if (isset($_GET["action"]) && $_GET["action"] == "delete") {     
+        ProductService::verwijderProductWinkelmandje($_GET["regel"], $_GET["extras"]);
         header("location: toonallepizzas.php");
         exit(0);
     } else {

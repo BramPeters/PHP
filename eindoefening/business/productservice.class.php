@@ -46,15 +46,34 @@ class ProductService{
     }
     
     public static function voegProductMetExtras($prodId, $aantal, $extras){
+        $pizzaextras = "";
+        $_SESSION['mandteller'] = 0;
+        
         foreach ($extras as $extra){
-            $lijst = $lijst.$extra;
+            $pizzaextras = $pizzaextras.$extra;
         }
-        //$lijst = array_shift( $lijst );
-        $_SESSION["winkelmandje"]["$prodId"]["$lijst"] = $aantal;
-
-       // for($i=0; $i < count($extras); $i++){
-       //             echo "Selected " . $extras[$i] . "<br/>";
-       // }
+        if($pizzaextras == ""){$pizzaextras = 0;}
+        $lijst = ProductService::toonMandje();    
+        unset ($_SESSION["winkelmandje"]);
+        $lijst = ProductDAO::newItem($prodId, $aantal, $pizzaextras, $lijst);
+        foreach($lijst as $item){
+            $productId = $item->getProductId();
+            $extraz = $item->getProductExtra();
+            $aantalz = $item->getProductAantal();
+            $_SESSION["winkelmandje"]["$productId"][$extraz] += $aantalz;
+            $_SESSION['mandteller']++;
+        }
+        
+        
+//        foreach ($extras as $extra){
+//            $lijst = $lijst.$extra;
+//        }
+//        //$lijst = array_shift( $lijst );
+//        $_SESSION["winkelmandje"]["$prodId"]["$lijst"] += $aantal;
+//
+//       // for($i=0; $i < count($extras); $i++){
+//       //             echo "Selected " . $extras[$i] . "<br/>";
+//       // }
         
     }
     
@@ -77,9 +96,9 @@ class ProductService{
         
     }
     
-    public static function verwijderProductWinkelmandje($productId){        
-        if ($_SESSION["winkelmandje"][$productId]) {
-                unset($_SESSION["winkelmandje"][$productId]);
+    public static function verwijderProductWinkelmandje($productId, $extras){        
+        if ($_SESSION["winkelmandje"][$productId][$extras]) {
+                unset($_SESSION["winkelmandje"][$productId][$extras]);
             }
         else{
             echo "error";

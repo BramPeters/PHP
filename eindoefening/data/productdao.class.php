@@ -32,6 +32,19 @@ class ProductDAO{
         return $lijst;
     }
     
+    public static function getExtrasInfo($extraNr){
+        //$lijst = array();
+        $sql = "select * from ingredienten where IngredientId = '".$extraNr."'";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->query($sql);
+        foreach ($resultSet as $rij) {
+            $ingr = new Extra($rij["IngredientId"], $rij["IngredientNaam"], $rij["IngredientPrijs"]);
+            //array_push($lijst, $ingr);
+        }        
+        $dbh = null;
+        return $ingr;
+    }
+    
 //    public static function getContent(){
 //        $lijst = array();
 //        $sql = "select BestellingsNr, bestelregel.BestelRegel, bestelregel.ProductId, bestelregel.ProductAantal,producten.ProductId, producten.ProductType, producttype.ProductTypeId, producttype.ProductSoort, ProductNaam, ProductOmschrijving, ProductPrijs  from bestelregel, producten, producttype where BestellingsNr = 1 and bestelregel.ProductId=producten.ProductId and producten.ProductType=producttype.ProductTypeId order by bestelregel.BestelRegel";
@@ -48,6 +61,7 @@ class ProductDAO{
     public static function getMandje($winkelmandje){
         
         $lijst = array();
+        //$counter=1;
        // if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
         foreach($winkelmandje as $item=>$aantal){
         $sql = "select ProductNaam, ProductType, ProductPrijs, producttype.ProductTypeId, producttype.ProductSoort, ProductId from producten,producttype where ProductId = '".$item."' and producten.ProductType=producttype.ProductTypeId";
@@ -57,6 +71,7 @@ class ProductDAO{
             $pizza = new ProductInMandje($rij["ProductNaam"],$rij["ProductType"], $rij["ProductPrijs"],$rij["ProductSoort"], $item, $aantal, $rij["ProductId"]);
             array_push($lijst, $pizza);          
         $dbh = null;
+        //$counter++;
         }
         return $lijst;
        // }         
@@ -67,22 +82,54 @@ class ProductDAO{
        // if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
 
 
-        
+        //$counter=1;
         foreach($winkelmandje as $item=>$extras){
-            foreach($extras as $blob =>$aantal){
+            foreach($extras as $extra =>$aantal){
+               // foreach($extra as $extrap =>$aantalp){
 
         $sql = "select ProductNaam, ProductType, ProductPrijs, producttype.ProductTypeId, producttype.ProductSoort, ProductId from producten,producttype where ProductId = '".$item."' and producten.ProductType=producttype.ProductTypeId";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $resultSet = $dbh->query($sql);
         $rij = $resultSet->fetch(PDO::FETCH_ASSOC);
-            $pizza = new ProductInMandje($rij["ProductNaam"],$rij["ProductType"], $rij["ProductPrijs"],$rij["ProductSoort"], $item, $aantal, $rij["ProductId"]);
+            $pizza = new ProductInMandje($rij["ProductNaam"],$rij["ProductType"], $rij["ProductPrijs"],$rij["ProductSoort"], $item, $aantal, $rij["ProductId"], $extra);
             array_push($lijst, $pizza);          
         $dbh = null;
+        //$counter++;
+       // }
         }
         }
         return $lijst;
        // }         
     }
+    
+    
+    
+    //nieuwste test
+    public static function newItem($item, $aantal, $extra, $lijst){
+        
+       
+       // if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
+
+               // foreach($extra as $extrap =>$aantalp){
+
+        $sql = "select ProductNaam, ProductType, ProductPrijs, producttype.ProductTypeId, producttype.ProductSoort, ProductId from producten,producttype where ProductId = '".$item."' and producten.ProductType=producttype.ProductTypeId";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->query($sql);
+        $rij = $resultSet->fetch(PDO::FETCH_ASSOC);
+            $pizza = new ProductInMandje($rij["ProductNaam"],$rij["ProductType"], $rij["ProductPrijs"],$rij["ProductSoort"], $item, $aantal, $rij["ProductId"], $extra);
+            if(array_push($lijst, $pizza)){$_SESSION['ja']=1;};          
+        $dbh = null;        
+       // }
+        //echo("testmolio");
+        //sleep(10);
+        return $lijst;
+       // }         
+    }
+    
+    
+    
+    
+    
     
     
     public static function uploadenWinkelmandje($gebruikerInfo, $mandjeLijst){
