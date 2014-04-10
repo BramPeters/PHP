@@ -13,7 +13,7 @@
           <li><a>Finish</a></li>
         </ul>
         <h1>Aanmelden</h1>
-        <form action="logincheck.php?action=login" method="post">
+        <form action="stap2_logincheck.php?action=login" method="post">
             <table>
                 <tbody>
                     <tr>
@@ -33,7 +33,7 @@
                     <tr> </tr>
                     <tr>
                         <td></td>						
-                        <td><a href="nieuwegebruiker.php">Nieuwe gebruiker aanmaken</a></td>						
+                        <td><a href="stap2b_nieuwegebruiker.php">Nieuwe gebruiker aanmaken</a></td>						
                     </tr>
                 </tbody>
             </table>

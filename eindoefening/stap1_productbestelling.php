@@ -12,19 +12,19 @@ if (!isset($_SESSION["winkelmandje"])) {
 //view
 $productLijst = ProductService::toonAllePizzas();
 $mandjeLijst = ProductService::toonMandje();
-include("presentation/productenlijst.php");
+include("presentation/stap1_productenlijst.php");
 
 
 //Toevoegen aan mandje
 if (isset($_GET["action"]) && $_GET["action"] == "process") {
     ProductService::voegNieuwProductWinkelmandje($_GET["product"]);
-    header("location: toonallepizzas.php");
+    header("location: stap1_productbestelling.php");
     exit(0);
 } else {
     //verwijderen uit mandje
     if (isset($_GET["action"]) && $_GET["action"] == "delete") {
         ProductService::verwijderProductWinkelmandje($_GET["id"], $_GET["extras"]);
-        header("location: toonallepizzas.php");
+        header("location: stap1_productbestelling.php");
         exit(0);
     } else {
         //aantal aanpassen in mandje
@@ -33,7 +33,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "process") {
             $prodId = $_GET["id"];
             $extras = $_GET["extras"];
             ProductService::updateProductWinkelmandje($prodId, $aantal, $extras);
-            header("location: toonallepizzas.php");
+            header("location: stap1_productbestelling.php");
             exit(0);
         } else {
             //pizza met extras toevoegen aan mandje
@@ -43,7 +43,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "process") {
                 $extras = $_POST['extra'];
                 $_SESSION["check"] = 1;
                 ProductService::voegProductMetExtras($prodId, $aantal, $extras);
-                header("location: toonallepizzas.php");
+                header("location: stap1_productbestelling.php");
                 exit(0);
             }
         }

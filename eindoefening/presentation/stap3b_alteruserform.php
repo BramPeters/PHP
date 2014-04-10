@@ -7,7 +7,7 @@
     <body>
 
                 <h1>Account aanpassen</h1>
-        <form action="alterusercheck.php?action=login" method="post">
+        <form action="stap3b_alterusercheck.php?action=login" method="post">
             <table>
                 <tbody>
                     <tr>
@@ -25,6 +25,8 @@
                     <tr>
                         <td>Postcode:</td>
                         <td><input type="text" name="txtPostcode" value="<?php print($gebruikerInfo->getKlantPostcode()); ?>" required maxlength="4" pattern="[0-9]{4}"></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td></td>

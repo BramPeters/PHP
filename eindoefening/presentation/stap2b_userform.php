@@ -7,7 +7,7 @@
     <body>
 
                 <h1>Nieuwe account aanmaken</h1>
-        <form action="nieuwegebruikercheck.php" method="post">
+        <form action="stap2b_nieuwegebruikercheck.php" method="post">
             <table>
                 <tbody>
                     <tr>
@@ -35,7 +35,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><a href="logincheck.php"><input type="button" value="Annuleren"></a></td>
+                        <td><a href="stap2_logincheck.php"><input type="button" value="Annuleren"></a></td>
                         <td><input type="submit" value="Aanmaken"></td>
                         <td><?php if (isset($_GET["bestaandegebruiker"])) {print("<p style='color:red;'>Er bestaat al een gebruiker met het opgegeven emailadres.</p>");}?></td>
                     </tr>

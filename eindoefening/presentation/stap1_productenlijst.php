@@ -20,11 +20,6 @@
             </tr>
             <td style="background-color:#ddd">Naam & Omschrijving</td><td style="background-color:#ddd">Prijs</td><td style="background-color:#ddd"></td>
             <?php
-            //echo '<pre>';
-        //print_r ($_SESSION);
-        //echo  '</pre>';
-           // print_r($_SESSION);
-            //print_r($mandjeLijst);
             foreach ($productLijst as $product) {
                 if ($product->getProductType() == "Pizza") {
                     ?>
@@ -44,7 +39,7 @@
                         <td style="background-color:#FFF">
                             <?php
                             $productId = $product->getProductId();
-                            echo"<a href=pizzaextras.php?action=process&product=$productId style='text-decoration:none; font-weight: bold'>Voeg toe aan mandje </a>"
+                            echo"<a href=stap1b_productbestelling_extras.php?action=process&product=$productId style='text-decoration:none; font-weight: bold'>Voeg toe aan mandje </a>"
                             ?>
                         </td>
 
@@ -76,7 +71,7 @@
                         <td style="background-color:#FFF">
                             <?php
                             $productId = $product->getProductId();
-                            echo"<a href=toonallepizzas.php?action=process&product=$productId style='text-decoration:none; font-weight: bold'>Voeg toe aan mandje </a>"
+                            echo"<a href=stap1_productbestelling.php?action=process&product=$productId style='text-decoration:none; font-weight: bold'>Voeg toe aan mandje </a>"
                             ?>
                         </td>
 
@@ -110,7 +105,7 @@
                         <td style="background-color:#FFF">
                             <?php
                             $productId = $product->getProductId();
-                            echo"<a href=toonallepizzas.php?action=process&product=$productId style='text-decoration:none; font-weight: bold'>Voeg toe aan mandje </a>"
+                            echo"<a href=stap1_productbestelling.php?action=process&product=$productId style='text-decoration:none; font-weight: bold'>Voeg toe aan mandje </a>"
                             ?>
                         </td>
 
@@ -120,14 +115,6 @@
             }
             ?>    
         </table>
-
-        
-        
-        
-        
-        
-        
-        
         
         <!--versie 2-->
         <div style='float:right;min-height: 5em;' class="winkelmandje">
@@ -146,15 +133,12 @@
                         $aantalProduct = $item->getProductAantal();
                         $pizzaPrijs = $item->getProductAantal() * $item->getProductPrijs();
                         $subTotaal += $pizzaPrijs;
-                        //$productRegel = $item->getProductRegel();
-                        
-                        //print("product: ".$item." - ".$aantal."<brb>");
                         ?>
                    
                        <tr>
                             <td style="width:0.1em; text-align: center;">
                                
-                                <?php print("<form action='toonallepizzas.php?action=change&id=$productId&extras=$extras' method='POST'>"); ?>
+                                <?php print("<form action='stap1_productbestelling.php?action=change&id=$productId&extras=$extras' method='POST'>"); ?>
                                 <?php print ("<input type='text' name='txtAantal' value=$aantalProduct maxlength='2' style='width: 20px;' required>"); ?>                                
                                 <?php print("<input type='submit' value='+ -'>") ?>
                                 <?php print("</form>") ?>
@@ -172,12 +156,12 @@
                                 <?php
                                 
                                 //print $productId;
-                                print("<a href=toonallepizzas.php?action=delete&id=".$productId."&extras=".$extras." style='text-decoration:none; font-weight: bold'>Verwijder uit mandje </a>");
+                                print("<a href=stap1_productbestelling.php?action=delete&id=".$productId."&extras=".$extras." style='text-decoration:none; font-weight: bold'>Verwijder uit mandje </a>");
                                 ?>
                                
                             </td>
                         </tr>
-                        <?php //for($i= count($extras);$i >0; $i--){
+                        <?php 
                         if($extras !== 0){
                             $arrExtras = str_split($extras);
                             foreach($arrExtras as $extraNr){
@@ -208,20 +192,11 @@
                         
                         
                           <?php   } ?>   
-                            
-                           
-                            
-                            
-                                    
-                        
-                        
-                         
+   
                     <?php
                     $totaalPrijs = $totaalPrijs + $subTotaal;
-                    //$regel++;
                         }
-                        
-                    
+                 
                     ?>
                     <tr style='background-color:darkslateblue; color:white;'>
                         <td>Totaal: </td>
@@ -233,7 +208,7 @@
                 </table>
                 <br>
 
-                <a href="logincheck.php" style="
+                <a href="stap2_logincheck.php" style="
                    border-top: 1px solid #96d1f8;
                    background: #204080;
                    padding: 5px 10px;
@@ -255,24 +230,5 @@
                ?>
 
         </div>
-        <!-- versie 2 end -->
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
- <?php 
- //Print_r ($_SESSION); 
- //var_dump($_SESSION);
- ?>
-
-
-
     </body>
 </html>
