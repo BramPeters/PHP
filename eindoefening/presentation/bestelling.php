@@ -19,6 +19,7 @@
             //Print_r ($postcodes);
             //print_r($_SESSION);
             if (!empty($gebruikerInfo)) {
+                $korting = $gebruikerInfo->getKlantStatus();
         ?>  
                     <tr>
                         <td>Naam:</td>
@@ -73,11 +74,21 @@
                     <td style="background-color:#ddd; width:0.1em;">Aantal</td><td style="background-color:#ddd">Item</td><td style="background-color:#ddd"></td><td style="background-color:#ddd; width:3.2em;text-align: center;">Prijs</td><td style="background-color:#ddd; width:3.2em;"></td><?php
                     
                     foreach($mandjeLijst as $item){
+                        $subTotaal = 0;
+                        $productId = $item->getProductId();
+                        $extras = $item->getProductExtra();
+                        $aantalProduct = $item->getProductAantal();
+                        $pizzaPrijs = $item->getProductAantal() * $item->getProductPrijs();
+                        $subTotaal += $pizzaPrijs;                        
+                        //$productRegel = $item->getProductRegel();
+                        
                         //print("product: ".$item." - ".$aantal."<brb>");
                         ?>
+                   
                        <tr>
                             <td style="width:0.1em; text-align: center;">
-                                <?php print($item->getProductAantal()); ?>
+                               
+                                <?php print($aantalProduct); ?>
                             </td>
                             <td style="width:0.1em;">
                                 <?php print($item->getProductSoort()); ?>
@@ -86,13 +97,56 @@
                                 <?php print($item->getProductNaam()); ?>
                             </td>
                             <td style='text-align: center;'>
-                                <?php print($item->getProductAantal() * $item->getProductPrijs() . " &euro;"); ?>
+                                <?php print($pizzaPrijs . " &euro;"); ?>
                             </td>
-                        </tr> 
-                    <?php
-                    $totaalPrijs = $totaalPrijs + ($item->getProductAantal() * $item->getProductPrijs());
-                        }
+                        </tr>
+                        <?php //for($i= count($extras);$i >0; $i--){
+                        if($extras !== 0){
+                            $arrExtras = str_split($extras);
+                            foreach($arrExtras as $extraNr){
+                                $extrasPrijs = 0;
+                                $extrasInfo=productDAO::getExtrasInfo($extraNr);
+                                $extrasPrijs = $extrasInfo->IngredientPrijs;
+                                $extrasPrijs = $extrasPrijs*$aantalProduct;
+                                 //$extras(1) ProductService::getExtra;
+                             ?>
+                            <tr style="height:0.6em;padding:0;margin-top:-5px;">
+                                <td></td>
+                                <td style='text-align: center;font-size:small;padding:0.1em;'>Extra</td>
+                                <td style='text-align: center;font-size:small;padding:0.1em;'><?php print($extrasInfo->IngredientNaam); ?></td>
+                                 <td style='text-align: center; font-size:small; padding:0.1em;'><?php print($extrasPrijs. " &euro;"); ?></td>
+                                <td></td>
+                            </tr>
+                            
+                        <?php 
+                            $subTotaal += $extrasPrijs;
+                            }?>
+                            <tr style="height:0.6em; padding:0; margin-top:-5px;">
+                                <td></td>
+                                <td style='text-align: center;padding:0.1em;'>Subtotaal</td>
+                                <td style='text-align: center;padding:0.1em;'></td>
+                                 <td style='text-align: center;padding:0.1em;'><?php print($subTotaal. " &euro;"); ?></td>
+                                <td></td>
+                            </tr> 
                         
+                        
+                          <?php   } ?>   
+                            
+                           
+                            
+                            
+                                    
+                        
+                        
+                         
+                    <?php
+                    $totaalPrijs = $totaalPrijs + $subTotaal;
+                    //$regel++;                    
+                        }
+                        //$new_width = ($percentage / 100) * $totalWidth;
+                        $kortingsGetal = ($korting / 100) * $totaalPrijs;                       
+                        $kortingsGetal = round($kortingsGetal, 2);
+                        $eindTotaal = ($totaalPrijs - $kortingsGetal);
                     
                     ?>
                     <tr style='background-color:darkslateblue; color:white;'>
@@ -100,6 +154,20 @@
                         <td></td>
                         <td></td>
                         <td style='text-align: center;'><?php print($totaalPrijs) . " &euro;" ?></td>
+                        <td></td>
+                    </tr>
+                    <tr style='background-color:darkslateblue; color:white;'>
+                        <td>Korting: </td>
+                        <td></td>
+                        <td></td>
+                        <td style='text-align: center;'><?php print($korting) . "%" ?></td>
+                        <td></td>
+                    </tr>
+                    <tr style='background-color:darkslateblue; color:white;'>
+                        <td>Eindtotaal: </td>
+                        <td></td>
+                        <td></td>
+                        <td style='text-align: center;'><?php print($eindTotaal) . " &euro;" ?></td>
                         <td></td>
                     </tr>
                 </table>

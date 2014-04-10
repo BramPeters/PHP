@@ -14,7 +14,7 @@ class User {
 		return self::$idMap[$id];
 	}
 	
-	public function __construct($KlantId, $Emailadres, $Wachtwoord, $KlantFamilienaam, $KlantVoornaam, $KlantAdres, $KlantPostcode, $Telefoonnummer) {
+	public function __construct($KlantId, $Emailadres, $Wachtwoord, $KlantFamilienaam, $KlantVoornaam, $KlantAdres, $KlantPostcode, $Telefoonnummer, $KlantStatus) {
                 $this->KlantId = $KlantId;	
                 $this->KlantFamilienaam = $KlantFamilienaam;
                 $this->KlantVoornaam = $KlantVoornaam;
@@ -22,7 +22,9 @@ class User {
                 $this->KlantPostcode = $KlantPostcode;
                 $this->Telefoonnummer = $Telefoonnummer;
                 $this->Emailadres = $Emailadres;
-                 $this->Wachtwoord = $Wachtwoord;
+                $this->Wachtwoord = $Wachtwoord;
+                $this->KlantStatus = $KlantStatus;
+                 
 	}
         public function getKlantId() {
 		return $this->KlantId;
@@ -52,6 +54,9 @@ class User {
 	}
         public function getWachtwoord() {
 		return $this->Wachtwoord;
+	}
+        public function getKlantStatus() {
+		return $this->KlantStatus;
 	}
         
 }

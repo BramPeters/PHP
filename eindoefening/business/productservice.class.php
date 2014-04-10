@@ -46,23 +46,35 @@ class ProductService{
     }
     
     public static function voegProductMetExtras($prodId, $aantal, $extras){
+        $_SESSION["check"]=2;
         $pizzaextras = "";
-        $_SESSION['mandteller'] = 0;
+        //$_SESSION['mandteller'] = 0;
         
         foreach ($extras as $extra){
             $pizzaextras = $pizzaextras.$extra;
         }
         if($pizzaextras == ""){$pizzaextras = 0;}
-        $lijst = ProductService::toonMandje();    
+        if(ProductService::toonMandje() !==false){
+            $lijst = ProductService::toonMandje();
+        }else{
+            $lijst = array();
+        }    
         unset ($_SESSION["winkelmandje"]);
+        $_SESSION["winkelmandje"]="";
         $lijst = ProductDAO::newItem($prodId, $aantal, $pizzaextras, $lijst);
         foreach($lijst as $item){
             $productId = $item->getProductId();
             $extraz = $item->getProductExtra();
             $aantalz = $item->getProductAantal();
-            $_SESSION["winkelmandje"]["$productId"][$extraz] += $aantalz;
-            $_SESSION['mandteller']++;
+            if(isset ($_SESSION["winkelmandje"]["$productId"][$extraz])){
+              $_SESSION["winkelmandje"]["$productId"][$extraz] += $aantalz;  
+            }else{
+              $_SESSION["winkelmandje"]["$productId"][$extraz] = $aantalz;    
+            }
+            
+            //$_SESSION['mandteller']++;
         }
+        return $lijst;
         
         
 //        foreach ($extras as $extra){
@@ -79,19 +91,19 @@ class ProductService{
     
     
     
-    public static function updateProductWinkelmandje($productId, $productAantal){
+    public static function updateProductWinkelmandje($productId, $productAantal, $extras){
         
-        if(isset($_SESSION["winkelmandje"]["$productId"][0])){
+        if(isset($_SESSION["winkelmandje"]["$productId"][$extras])){
            if($productAantal == 0){
-               unset($_SESSION["winkelmandje"][$productId][0]); 
+               unset($_SESSION["winkelmandje"][$productId][$extras]); 
            }else{
-            $_SESSION["winkelmandje"]["$productId"][0]= $productAantal;
+            $_SESSION["winkelmandje"]["$productId"][$extras]= $productAantal;
            }
            echo $productAantal;
            
            //print("extra hoeveelheid voor het mandje");
         }else{
-            $_SESSION["winkelmandje"]["$productId"][0]= $productAantal;
+            $_SESSION["winkelmandje"]["$productId"][$extras]= $productAantal;
            } 
         
     }

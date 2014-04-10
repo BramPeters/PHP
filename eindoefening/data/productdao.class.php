@@ -37,12 +37,15 @@ class ProductDAO{
         $sql = "select * from ingredienten where IngredientId = '".$extraNr."'";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $resultSet = $dbh->query($sql);
+        //if($resultSet !== null){
         foreach ($resultSet as $rij) {
             $ingr = new Extra($rij["IngredientId"], $rij["IngredientNaam"], $rij["IngredientPrijs"]);
             //array_push($lijst, $ingr);
-        }        
-        $dbh = null;
+        }
         return $ingr;
+        //}
+        $dbh = null;
+        
     }
     
 //    public static function getContent(){
@@ -106,7 +109,7 @@ class ProductDAO{
     
     //nieuwste test
     public static function newItem($item, $aantal, $extra, $lijst){
-        
+        $_SESSION["check"]=3;
        
        // if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
 
@@ -117,7 +120,7 @@ class ProductDAO{
         $resultSet = $dbh->query($sql);
         $rij = $resultSet->fetch(PDO::FETCH_ASSOC);
             $pizza = new ProductInMandje($rij["ProductNaam"],$rij["ProductType"], $rij["ProductPrijs"],$rij["ProductSoort"], $item, $aantal, $rij["ProductId"], $extra);
-            if(array_push($lijst, $pizza)){$_SESSION['ja']=1;};          
+            array_push($lijst, $pizza);          
         $dbh = null;        
        // }
         //echo("testmolio");
@@ -151,18 +154,28 @@ class ProductDAO{
         
         $teller = 1;
         //if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
-        foreach($mandjeLijst as $item){
-        $sql = "insert into `bestelregel`(`BestellingsNr`,`BestelRegel`, `ProductId`, `ProductAantal`) VALUES (".$max." ,".$teller." ,".$item->getProductId().", ".$item->getProductAantal().")";
-        //print("<br>".$sql."<br>");
-        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $dbh->exec($sql);
-        $teller++;
-        //}
-        }
+        foreach($mandjeLijst as $item){            
+            $sql = "insert into `bestelregel`(`BestellingsNr`,`BestelRegel`, `ProductId`, `ProductAantal`) VALUES (".$max." ,".$teller." ,".$item->getProductId().", ".$item->getProductAantal().")";
+            $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+            $dbh->exec($sql);
+            $teller++;
+        
+            $extras = $item->getProductExtra();
+            if($extras !== 0){
+                 $arrExtras = str_split($extras);
+                 foreach($arrExtras as $extraNr){
+                       $extrasInfo=productDAO::getExtrasInfo($extraNr); 
+                       $ingrId = $extrasInfo->IngredientId;
+                       $sql = "insert into `bestregextra`(`BestellingsNr`,`BestelRegel`, `IngredientId`) VALUES (".$max." ,".$teller." ,".$ingrId.")";
+                       $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+                       $dbh->exec($sql);  
+                 }
+            }//endof extras
+        }//endof foreach item
         $dbh = null;
         return true;
         
-      
+        
     }
     
     

@@ -39,7 +39,7 @@
         </table>
                 
                 <?php print ("<input type='number' name='txtAantal' min='1' max='99' placeholder='Aantal' maxlength='2' style='width: 80px;' required>"); ?>                                
-                <?php print("<br><br>"."<input type='submit' value='Personaliseer!'>") ?>
+                <?php print("<br><br>"."<input type='submit' value='Voeg toe!'>") ?>
                 <?php print("<a href='toonallepizzas.php'><input type='button' value='Annuleren'></a>") ?>
                 <?php print("</form>") ?>
                     

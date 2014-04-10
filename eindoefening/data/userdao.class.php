@@ -26,13 +26,13 @@ class UserDAO {
 
     public static function getUserInfo($gebruikersnaam) {
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $sql = "select KlantId, Emailadres, Wachtwoord, KlantFamilienaam, KlantVoornaam, KlantAdres, KlantPostcode, Telefoonnummer from klanten where Emailadres = '" .
-                $gebruikersnaam . "'";
+        $sql = "select KlantId, Emailadres, Wachtwoord, KlantFamilienaam, KlantVoornaam, KlantAdres, KlantPostcode, Telefoonnummer,klanten.KlantStatus, klantstatus.KlantStatusId, klantstatus.KortingsPercentage as korting from klanten, klantstatus where Emailadres = '" .
+                $gebruikersnaam . "' and klanten.KlantStatus = klantstatus.KlantStatusId";
         $resultSet = $dbh->query($sql);
         if ($resultSet) {
             $rij = $resultSet->fetch();
             if ($rij) {
-                $user = new User($rij["KlantId"], $rij["Emailadres"], $rij["Wachtwoord"], $rij["KlantFamilienaam"], $rij["KlantVoornaam"], $rij["KlantAdres"], $rij["KlantPostcode"], $rij["Telefoonnummer"]);
+                $user = new User($rij["KlantId"], $rij["Emailadres"], $rij["Wachtwoord"], $rij["KlantFamilienaam"], $rij["KlantVoornaam"], $rij["KlantAdres"], $rij["KlantPostcode"], $rij["Telefoonnummer"], $rij["korting"]);
                 $dbh = null;
                 return $user;
             } else {
