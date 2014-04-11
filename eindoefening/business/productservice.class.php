@@ -1,5 +1,4 @@
 <?php
-//namespace PizzaShop\Service;
 require_once("data/productdao.class.php");
 
 class ProductService{
@@ -12,29 +11,22 @@ class ProductService{
         $lijst = ProductDAO::getExtra();
         return $lijst;
     }
-    
-//    public static function toonInhoudMandje(){
-//        $lijst = ProductDAO::getContent();
-//        return $lijst;
-//    }
-    
+
+    //weergave winkelmandje
     public static function toonMandje(){
         if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
           $winkelmandje =  $_SESSION["winkelmandje"];
-        //$lijst = ProductDAO::getMandje($winkelmandje);
         $lijst = ProductDAO::getMandje2($winkelmandje);
-        //print("er is een mandje");
+        //er is een mandje;
         return $lijst;
         }else{
-            //print("er is geen mandje");
+            //er is geen mandje;
         return false;
         }
         
     }
-    
+    //nieuw item toevoegen zonder mogelijke extra's
     public static function voegNieuwProductWinkelmandje($productId){
-        //ProductDAO::getProductById($productId);
-        
         if(isset($_SESSION["winkelmandje"]["$productId"][0])){
            $_SESSION["winkelmandje"]["$productId"][0]++;
            //print("extra hoeveelheid voor het mandje");
@@ -45,6 +37,7 @@ class ProductService{
         
     }
     
+    //nieuwe pizza (= item met extra's) toevoegen
     public static function voegProductMetExtras($prodId, $aantal, $extras){
         $_SESSION["check"]=2;
         $pizzaextras = "";
@@ -90,7 +83,7 @@ class ProductService{
     }
     
     
-    
+    //aantal aanpassen in mandje
     public static function updateProductWinkelmandje($productId, $productAantal, $extras){
         
         if(isset($_SESSION["winkelmandje"]["$productId"][$extras])){
@@ -107,7 +100,7 @@ class ProductService{
            } 
         
     }
-    
+    //product verwijderen uit mandje
     public static function verwijderProductWinkelmandje($productId, $extras){        
         if ($_SESSION["winkelmandje"][$productId][$extras]) {
                 unset($_SESSION["winkelmandje"][$productId][$extras]);
@@ -116,7 +109,9 @@ class ProductService{
             echo "error";
         }
     }
-       
+     
+    
+    //mandje uploaden naar DB
     public static function winkelmandjeUploaden($gebruikerInfo, $mandjeLijst){
         if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
         ProductDAO::uploadenWinkelmandje($gebruikerInfo, $mandjeLijst);

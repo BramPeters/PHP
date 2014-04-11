@@ -5,20 +5,21 @@ require_once("entities/product.class.php");
 require_once("entities/user.class.php");
 
 class ProductDAO{
+    //lijst van alle producten ophalen uit DB
     public static function getAll(){
         $lijst = array();
         $sql = "select ProductId, producttype.ProductSoort, ProductType, ProductNaam, ProductOmschrijving, ProductPrijs from producten, producttype where ProductType = producttype.ProductTypeId order by ProductPrijs asc";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $resultSet = $dbh->query($sql);
         foreach ($resultSet as $rij) {
-            $pizza = new Pizza($rij["ProductId"],$rij["ProductSoort"], $rij["ProductNaam"],$rij["ProductOmschrijving"], $rij["ProductPrijs"]);
-            array_push($lijst, $pizza);
+            $product = new Product($rij["ProductId"],$rij["ProductSoort"], $rij["ProductNaam"],$rij["ProductOmschrijving"], $rij["ProductPrijs"]);
+            array_push($lijst, $product);
         }
         
         $dbh = null;
         return $lijst;
     }
-    
+    //lijst van alle Extra's ophalen uit DB
     public static function getExtra(){
         $lijst = array();
         $sql = "select * from ingredienten";
@@ -31,7 +32,7 @@ class ProductDAO{
         $dbh = null;
         return $lijst;
     }
-    
+    //Specifieke extra uit DB halen
     public static function getExtrasInfo($extraNr){
         //$lijst = array();
         $sql = "select * from ingredienten where IngredientId = '".$extraNr."'";
@@ -61,24 +62,27 @@ class ProductDAO{
 //        return $lijst;
 //    }
     
-    public static function getMandje($winkelmandje){
-        
-        $lijst = array();
-        //$counter=1;
-       // if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
-        foreach($winkelmandje as $item=>$aantal){
-        $sql = "select ProductNaam, ProductType, ProductPrijs, producttype.ProductTypeId, producttype.ProductSoort, ProductId from producten,producttype where ProductId = '".$item."' and producten.ProductType=producttype.ProductTypeId";
-        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
-        $resultSet = $dbh->query($sql);
-        $rij = $resultSet->fetch(PDO::FETCH_ASSOC);
-            $pizza = new ProductInMandje($rij["ProductNaam"],$rij["ProductType"], $rij["ProductPrijs"],$rij["ProductSoort"], $item, $aantal, $rij["ProductId"]);
-            array_push($lijst, $pizza);          
-        $dbh = null;
-        //$counter++;
-        }
-        return $lijst;
-       // }         
-    }
+    //
+//    public static function getMandje($winkelmandje){
+//        
+//        $lijst = array();
+//        //$counter=1;
+//       // if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
+//        foreach($winkelmandje as $item=>$aantal){
+//        $sql = "select ProductNaam, ProductType, ProductPrijs, producttype.ProductTypeId, producttype.ProductSoort, ProductId from producten,producttype where ProductId = '".$item."' and producten.ProductType=producttype.ProductTypeId";
+//        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+//        $resultSet = $dbh->query($sql);
+//        $rij = $resultSet->fetch(PDO::FETCH_ASSOC);
+//            $pizza = new ProductInMandje($rij["ProductNaam"],$rij["ProductType"], $rij["ProductPrijs"],$rij["ProductSoort"], $item, $aantal, $rij["ProductId"]);
+//            array_push($lijst, $pizza);          
+//        $dbh = null;
+//        //$counter++;
+//        }
+//        return $lijst;
+//       // }         
+//    }
+    
+    //
     public static function getMandje2($winkelmandje){
         
         $lijst = array();
@@ -134,7 +138,7 @@ class ProductDAO{
     
     
     
-    
+    //winkelmandje uploaden in DB
     public static function uploadenWinkelmandje($gebruikerInfo, $mandjeLijst){
         $sql = "select MAX(BestellingsNr) as Hoogste from bestellingen";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);

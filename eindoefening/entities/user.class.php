@@ -3,9 +3,16 @@ class User {
 
 	private static $idMap = array();
 
-	private $id;
-	private $gebruikersnaam;
-	private $wachtwoord;
+	private $KlantId;
+	private $KlantFamilienaam;
+	private $KlantVoornaam;
+        private $KlantAdres;
+        private $KlantPostcode;
+        private $Telefoonnummer;
+        private $Emailadres;
+        private $Wachtwoord;
+        private $KlantStatus;
+        
 	
 	public static function create($id, $gebruikersnaam, $wachtwoord) {
 		if (!isset(self::$idMap[$id])) {

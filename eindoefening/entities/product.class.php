@@ -1,5 +1,7 @@
 <?php
-class Pizza {
+
+//class om producten weer te geven
+class Product {
     public function __construct($ProductId,$ProductType, $ProductNaam,$ProductOmschrijving, $ProductPrijs) {
         $this->ProductId = $ProductId;
         $this->ProductType = $ProductType;
@@ -26,45 +28,8 @@ class Pizza {
 
 }
 
-class MandProduct {
-    public function __construct($BestellingsNr, $BestelRegel, $ProductId, $ProductAantal, $b, $c, $d, $ProductSoort, $ProductNaam, $ProductOmschrijving, $ProductPrijs ) {
-        $this->BestellingsNr = $BestellingsNr;
-        $this->BestelRegel = $BestelRegel;
-        $this->ProductId = $ProductId;
-        $this->ProductAantal = $ProductAantal;
-        $this->ProductSoort = $ProductSoort;
-        $this->ProductNaam = $ProductNaam;
-        $this->ProductOmschrijving = $ProductOmschrijving;
-        $this->ProductPrijs = $ProductPrijs;
-    }
-    public function getBestellingsNr() {
-        return $this->BestellingsNr;
-    }
-    public function getBestelRegel() {
-        return $this->BestelRegel;
-    }
 
-    public function getProductId() {
-        return $this->ProductId;
-    }
-    public function getProductAantal() {
-        return $this->ProductAantal;
-    }
-    public function getProductSoort() {
-        return $this->ProductSoort;
-    }
-    public function getProductNaam() {
-        return $this->ProductNaam;
-    }
-    public function getProductOmschrijving() {
-        return $this->ProductOmschrijving;
-    }
-    public function getProductPrijs() {
-        return $this->ProductPrijs;
-    }
-
-}
-//$sql = "select ProductNaam, ProductType, ProductPrijs, producttype.ProductTypeId, producttype.ProductSoort from producten,producttype where ProductId = ".$productId ." and producten.ProductType=producttype.ProductTypeId";
+//class gebruikt om producten weer te geven in mandje
 class ProductInMandje {
     public function __construct(/*$regel,*/ $ProductNaam, $ProductType, $ProductPrijs, $ProductSoort, $item, $aantal, $ProductId, $extra) {
         //$this->ProductRegel = $regel;
@@ -105,10 +70,7 @@ class ProductInMandje {
 
 
 }
-
-
-
-
+//class om extras weer te geven
 class Extra {
     public function __construct($IngredientId,$IngredientNaam, $IngredientPrijs) {
         $this->IngredientId = $IngredientId;
