@@ -46,4 +46,22 @@ class UserService {
     }
     
     
+    
+    
+    
+    
+    //ADMIN
+    
+        //check of de account wordt teruggevonden in de DB
+        public static function controleerAdmin($gebruikersnaam, $wachtwoord) {
+		$userww = UserDAO::getAdmin($gebruikersnaam);
+		if (isset($userww) && $userww == $wachtwoord) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+    
+    
+    
 }

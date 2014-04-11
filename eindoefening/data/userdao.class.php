@@ -75,4 +75,32 @@ class UserDAO {
         return $postcodes;
     }
 
+    
+    
+    
+    
+    //ADMIN
+    public static function getAdmin($gebruikersnaam) {
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $sql = "select * from admins where Login = '" .
+                $gebruikersnaam . "'";
+        $resultSet = $dbh->query($sql);
+        if ($resultSet) {
+            $rij = $resultSet->fetch();
+            if ($rij) {
+                $user = $rij["Wachtwoord"];
+                $dbh = null;
+                return $user;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+    
+    
+    
+    
+    
 }

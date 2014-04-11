@@ -14,6 +14,7 @@ class ProductService{
 
     //weergave winkelmandje
     public static function toonMandje(){
+        $lijst = array();
         if(isset($_SESSION["winkelmandje"]) && $_SESSION["winkelmandje"] !=0){
           $winkelmandje =  $_SESSION["winkelmandje"];
         $lijst = ProductDAO::getMandje2($winkelmandje);
@@ -39,7 +40,7 @@ class ProductService{
     
     //nieuwe pizza (= item met extra's) toevoegen
     public static function voegProductMetExtras($prodId, $aantal, $extras){
-        $_SESSION["check"]=2;
+        //$_SESSION["check"]=2;
         $pizzaextras = "";
         //$_SESSION['mandteller'] = 0;
         
@@ -117,6 +118,16 @@ class ProductService{
         ProductDAO::uploadenWinkelmandje($gebruikerInfo, $mandjeLijst);
         }
         return true;
+    }
+    
+    
+    
+    
+    //admin
+    
+    public static function getAll(){
+        $lijst = ProductDAO::getAll();
+        return $lijst;
     }
     
 }

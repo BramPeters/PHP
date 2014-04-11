@@ -1,5 +1,5 @@
 <?php
-
+//controller
 ob_start();
 session_start();
 
@@ -12,6 +12,7 @@ if (!isset($_SESSION["winkelmandje"])) {
 //view
 $productLijst = ProductService::toonAllePizzas();
 $mandjeLijst = ProductService::toonMandje();
+
 include("presentation/stap1_productenlijst.php");
 
 
