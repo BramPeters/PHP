@@ -11,7 +11,8 @@ if (!isset($_SESSION["winkelmandje"])) {
 
 //view
 $productLijst = ProductService::toonAllePizzas();
-$mandjeLijst = ProductService::toonMandje();
+$mandje = ProductService::toonMandje();
+$mandjeLijst = ProductService::showAllProducten($mandje);
 
 include("presentation/stap1_productenlijst.php");
 

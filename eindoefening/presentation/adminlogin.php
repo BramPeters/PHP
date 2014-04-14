@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-    <head><title>PizzaShop: Login</title></head>
+    <head><title>PizzaShop: Login</title>
             <link rel="stylesheet" href="presentation/design.css" />
     </head>
     <body>
@@ -10,7 +10,7 @@
             <table>
                 <tbody>
                     <tr>
-                        <td>Emailadres:</td>
+                        <td>Login:</td>
                         <td><input type="text" name="txtGebruikersnaam"></td>
                     </tr>
                     <tr>
@@ -21,9 +21,6 @@
                         <td></td>
                         <td><input type="submit" value="Aanmelden"></td>
                     </tr>
-                    <tr> </tr>
-                    <tr> </tr>
-                    <tr> </tr>
                 </tbody>
             </table>
         </form>

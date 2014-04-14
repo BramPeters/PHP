@@ -126,7 +126,8 @@
                     $totaalPrijs = 0; ?>
                     <td style="background-color:#ddd; width:0.1em;">Aantal</td><td style="background-color:#ddd">Item</td><td style="background-color:#ddd"></td><td style="background-color:#ddd; width:3.2em;text-align: center;">Prijs</td><td style="background-color:#ddd; width:3.2em;"></td><?php
                    // $regel=0;
-                    foreach($mandjeLijst as $item){
+                     //print($mandjeLijst); 
+                    foreach($mandje as $item){
                         $subTotaal = 0;
                         $productId = $item->getProductId();
                         $extras = $item->getProductExtra();

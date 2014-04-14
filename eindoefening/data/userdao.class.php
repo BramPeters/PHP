@@ -4,6 +4,22 @@ require_once("entities/user.class.php");
 require_once("data/dbconfig.class.php");
 
 class UserDAO {
+    
+        public static function getAll(){
+        $lijst = array();
+        $sql = "select KlantId, KlantFamilienaam, KlantVoornaam, KlantAdres, KlantPostCode, KlantStatus, Telefoonnummer, Emailadres from klanten";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->query($sql);
+        foreach ($resultSet as $rij) {
+            $klant = new Klant($rij["KlantId"],$rij["KlantFamilienaam"], $rij["KlantVoornaam"],$rij["KlantAdres"], $rij["KlantPostCode"], $rij["KlantStatus"], $rij["Telefoonnummer"], $rij["Emailadres"]);
+            array_push($lijst, $klant);
+        }
+        
+        $dbh = null;
+        return $lijst;
+    }
+    
+    
 
     //checken of gebruiker bestaat in DB
     public static function getByGebruikersnaam($gebruikersnaam) {
@@ -99,7 +115,18 @@ class UserDAO {
         }
     }
     
-    
+    public static function getUserTypes(){
+            $lijst=array();
+        $sql = "select * from klantstatus";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->query($sql);
+        foreach ($resultSet as $rij) {
+            $klantType = new KlantType($rij["KlantStatusId"],$rij["Omschrijving"],$rij["KortingsPercentage"]);
+            array_push($lijst, $klantType);
+        }
+        $dbh = null;        
+        return $lijst;      
+    }
     
     
     

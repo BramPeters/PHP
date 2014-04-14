@@ -203,4 +203,58 @@ class ProductDAO{
     
 
     
+    
+    //ADMIN
+    
+        public static function getProductTypes(){
+            $lijst=array();
+        $sql = "select * from producttype";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->query($sql);
+        foreach ($resultSet as $rij) {
+            $productType = new ProductType($rij["ProductTypeId"],$rij["ProductSoort"]);
+            array_push($lijst, $productType);
+        }
+        $dbh = null;        
+        return $lijst;      
+    }
+    
+    public static function getAllBestellingen(){
+        $lijst = array();
+        $sql = "select BestellingsNr, bestellingen.KlantId, BestellingsTijdstip, klanten.KlantId, klanten.KlantFamilienaam as FNaam, klanten.KlantVoornaam as VNaam, bestellingen.Status, bestellingstatus.Id, bestellingstatus.Betekenis AS status  from bestellingen, klanten, bestellingstatus where bestellingen.KlantId = klanten.KlantId AND bestellingen.Status = bestellingstatus.Id AND BestellingsTijdstip between '".date("Y-m-d")." 00:00:00' AND '".date("Y-m-d")." 23:59:59'";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->query($sql);
+        foreach ($resultSet as $rij) {
+            $bestelling = new Bestelling($rij["BestellingsNr"],$rij["KlantId"], $rij["BestellingsTijdstip"],$rij["FNaam"],$rij["VNaam"], $rij["status"]);
+            array_push($lijst, $bestelling);
+        }
+        
+        $dbh = null;
+        return $lijst;
+    }
+    
+    
+    public static function getAantalBestellingen(){
+        //$lijst = array();
+        $sql = "select COUNT(BestellingsNr) AS aantal from bestellingen";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->query($sql);
+        $rij = $resultSet->fetch(PDO::FETCH_ASSOC);
+            $aantal = $rij["aantal"];
+            //array_push($lijst, $aantal);          
+        $dbh = null;  
+        return $aantal;
+    }
+    
+    public static function getAantalBestellingenVandaag(){
+        //$lijst = array();
+        $sql = "select COUNT(BestellingsNr) AS aantal from bestellingen where BestellingsTijdstip between '".date("Y-m-d")." 00:00:00' AND '".date("Y-m-d")." 23:59:59'";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $resultSet = $dbh->query($sql);
+        $rij = $resultSet->fetch(PDO::FETCH_ASSOC);
+            $aantal = $rij["aantal"];
+            //array_push($lijst, $aantal);          
+        $dbh = null;  
+        return $aantal;
+    }
 }

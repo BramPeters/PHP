@@ -29,11 +29,27 @@ if (isset($_GET["action"])) {
         if($_GET["action"] == "logout"){
            $_SESSION["admin"] = false;
            unset($_SESSION["gebruiker"]);
+           header("location: admin.php");
+           exit(0);
         }else{        
         //if action = overzicht weergeven
         if ($_GET["action"] == "overzicht" && $_SESSION["admin"] == true) {
+            $bestellingenfetch = ProductService::getAllBestellingen();
+            $bestellingenWeergave = AdminService::showAllBestellingen($bestellingenfetch);
+            $totBestellingen = ProductService::getAantalBestellingen();
+            $vandaagBestellingen = ProductService::getAantalBestellingenVandaag();
+            
             $productenfetch = ProductService::getAll();
             $productenWeergave = AdminService::showAllProducten($productenfetch);
+            
+            $productTypes=ProductService::getProductTypes();
+            $productTypesWeergave=AdminService::optionListProductTypes($productTypes);
+            
+            $extrasfetch = ProductService::toonAlleExtras();
+            $extrasWeergave = AdminService::showAllExtras($extrasfetch);
+            
+            $klantTypes=UserService::getUserTypes();
+            $klantTypesWeergave=AdminService::optionListUserTypes($klantTypes);
             
             $klantenfetch = UserService::getAll();
             $klantenWeergave = AdminService::showAllKlanten($klantenfetch);

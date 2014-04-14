@@ -90,3 +90,54 @@ class Extra {
     }
 
 }
+
+
+//class om prod types weer te geven
+class ProductType {
+    public function __construct($productTypeId,$productSoort) {
+        $this->productTypeId = $productTypeId;
+        $this->productSoort = $productSoort;
+
+    }
+    public function getProductTypeId() {
+        return $this->productTypeId;
+    }
+    public function getProductSoort() {
+        return $this->productSoort;
+    }
+
+
+}
+
+//class om bestellingen weer te geven
+class Bestelling {
+    public function __construct($bestellingsNr,$klantId,$BestellingsTijdstip,$FNaam,$VNaam, $status) {
+        $this->bestellingsNr = $bestellingsNr;
+        $this->klantId = $klantId;
+        $this->bestellingsTijdstip = $BestellingsTijdstip;
+        $this->FNaam = $FNaam;
+        $this->VNaam = $VNaam;
+        $this->status = $status;
+
+    }
+    public function getBestellingsNr() {
+        return $this->bestellingsNr;
+    }
+    public function getKlantId() {
+        return $this->klantId;
+    }
+    public function getBestellingsTijdstip() {
+        return $this->bestellingsTijdstip;
+    }
+    public function getFNaam() {
+        return $this->FNaam;
+    }
+    public function getVNaam() {
+        return $this->VNaam;
+    }
+    public function getStatus() {
+        return $this->status;
+    }
+
+
+}

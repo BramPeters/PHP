@@ -61,6 +61,16 @@ class UserService {
 			return false;
 		}
 	}
+           
+    public static function getAll(){
+        $lijst = UserDAO::getAll();
+        return $lijst;
+    }
+    
+    public static function getUserTypes(){
+        $lijst = UserDAO::getUserTypes();
+        return $lijst;
+    }
     
     
     
