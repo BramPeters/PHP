@@ -11,12 +11,9 @@
             <h2 style='margin: 1.2em;'><a href="">Bestellingen</a></h2>
             <div class='bestellingen_list' style='float:left'>
                 <h3 style='margin: 1.2em;'>Bestellingen van vandaag:</h3>
-                <table style='margin: 1.2em; background-color: lightblue;'>
-                    <td style="background-color:#ddd">Nr</td><td style="background-color:#ddd">Klant</td><td style="background-color:#ddd">Bestellingstijdstip</td><td style="background-color:#ddd">Status</td><td style="background-color:#ddd"></td><td style="background-color:#ddd"></td>
-                    
+                 
                     <?php print($bestellingenWeergave); ?>
-                    
-                    </table>
+            
             </div>
                         <div class='bestellingen_info' style='float:left'>
                 <p>Totaal aantal bestellingen: <?php print($totBestellingen)?> </p>
@@ -32,12 +29,9 @@
         <div class='producten_all' style='background-color: lightgray; margin:1em;padding:1em; float:left'>
             <h2 style='margin: 1.2em;'><a href="">Producten</a></h2>
             <div class='producten_list' style='float:left'>
-                <table style='margin: 1.2em; background-color: lightblue;'>
-                    <td style="background-color:#ddd">Id</td><td style="background-color:#ddd">Info</td><td style="background-color:#ddd">Prijs</td><td style="background-color:#ddd"></td><td style="background-color:#ddd"></td>
-                    
+                     
                     <?php print($productenWeergave); ?>
-                    
-                    </table>
+
             </div>
         <div class='producten_form' style='float:left; margin:1.2em;'>
             <form name="producten" class="" action="admin.php?action=insert&type=product" method="post">
@@ -77,15 +71,13 @@
         <div class='extras_all' style='background-color: lightgray; margin:1em;padding:1em; float:left'>
             <h2 style='margin: 1.2em;'><a href="">Extra's</a></h2>
             <div class='extras_all' style='float:left'>
-                <table style='margin: 1.2em; background-color: lightblue;'>
-                    <td style="background-color:#ddd">Id</td><td style="background-color:#ddd">Naam</td><td style="background-color:#ddd">Prijs</td><td style="background-color:#ddd"></td><td style="background-color:#ddd"></td>
-                    
+                   
                     <?php print($extrasWeergave); ?>
                     
-                    </table>
+
             </div>
         <div class='extras_form' style='float:left; margin:1.2em;'>
-            <form name="extras" class="" action="admin.php?action=insert&type=extras" method="post">
+            <form name="extras" class="" action="admin.php?action=insert&type=extra" method="post">
                 <h3>Nieuw ingredi&euml;nt toevoegen:</h3>
                 
 
@@ -111,12 +103,9 @@
         <div class='klanten_all' style='background-color: lightgray; margin:1em;padding:1em; float:left'>
             <h2 style='margin: 1.2em;'><a href="">Klanten</a></h2>
             <div class='klanten_list' style='float:left'>
-                <table style='margin: 1.2em; background-color: lightblue;'>
-                    <td style="background-color:#ddd">Id</td><td style="background-color:#ddd">Naam</td><td style="background-color:#ddd">Adres</td><td style="background-color:#ddd">Tel</td><td style="background-color:#ddd">Email</td><td style="background-color:#ddd">Status</td><td style="background-color:#ddd"></td><td style="background-color:#ddd"></td>
-                    
+                     
                     <?php print($klantenWeergave); ?>
-                    
-                    </table>
+
             </div>
         <div class='klanten_form' style='float:left; margin:1.2em;'>
             <form name="klanten" class="" action="admin.php?action=insert&type=klant" method="post">
@@ -138,19 +127,19 @@
 
                     <div class="">
                         <label for="klantpostcode" class="">klantpostcode: </label>
-                        <input type="text" class="form-control" name="klantpostcode" id="klantpostcode" placeholder="Vul hier het klantpostcode in." required style='margin-left: 3.1em;'>
+                        <input type="text" class="form-control" name="klantpostcode" id="klantpostcode" placeholder="Vul hier het klantpostcode in." required maxlength='4' pattern='[0-9]{4}' style='margin-left: 3.1em;'>
                     </div>
                 
                     <div class="">
                         <label for="klantstatus" class="">klantstatus: </label>
-                        <select name="producttype" style='margin-left: 6em;'>
+                        <select name="klantstatus" style='margin-left: 4.8em;'>
                             <?php print($klantTypesWeergave); ?>
                         </select>
                     </div>
                 
                 <div class="">
                         <label for="klanttelefoonnummer" class="">klanttelefoonnummer: </label>
-                        <input type="text" class="form-control" name="klanttelefoonnummer" id="klanttelefoonnummer" placeholder="Vul hier het klanttelefoonnummer in." required style='margin-left: 0.2em;'>
+                        <input type="text" class="form-control" name="klanttelefoonnummer" id="klanttelefoonnummer" placeholder="Vul hier het klanttelefoonnummer in." required maxlength='9' pattern='[0-9]{9}' style='margin-left: 0.2em;'>
                     </div>
                 
                 <div class="">
